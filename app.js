@@ -1,10 +1,17 @@
-import express from 'express';
-import 'dotenv/config';
-import session from 'express-session';
-import flash from 'connect-flash';
-import path from 'path';
+requiere('dotenv').config();
+
+const express = requiere('express');
+const session = requiere('express-session');
+const flash = requiere('connect-flash');
+const path = requiere('path');
+
 
 const app = express();
+
+// MOTOR DE PLANTILLAS
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
 
 //CONSTANTES
 const PORT = process.env.PORT; 
@@ -28,9 +35,14 @@ app.use(session({
 //FLASH MESSAGE
 app.use(flash());
 
-// MOTOR DE PLANTILLAS
-app.set('view engine', 'pug');
-app.set('views', './views');
+//VARIABLES DISPONIBLES EN TODAS LAS VISTAS
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null; 
+    res.locals.success_msg = req.flash('success');
+    res.locals.error_msg = req.flash('error');
+    next();
+});
+
 
 // RUTAS
 app.get('/', (req, res) => {
@@ -49,6 +61,7 @@ app.use((err, req, res, next) => {
 });
 
 //SERVIDOR 
+const PORT = process.env.PORT || 3000;
 app.listen (PORT , () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
