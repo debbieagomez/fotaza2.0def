@@ -1,9 +1,9 @@
-requiere('dotenv').config();
+require('dotenv').config();
 
-const express = requiere('express');
-const session = requiere('express-session');
-const flash = requiere('connect-flash');
-const path = requiere('path');
+const express = require('express');
+const session = require('express-session');
+const flash = require('connect-flash');
+const path = require('path');
 
 
 const app = express();
@@ -12,9 +12,6 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-
-//CONSTANTES
-const PORT = process.env.PORT; 
 
 // MILDAWARE
 app.use(express.json());
