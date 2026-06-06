@@ -16,16 +16,16 @@ const Notification = sequelize.define('Notification', {
         allowNull: false
     },
     type: {
-        type: DataTypes.ENUM('comment', 'rating', 'interesed', 'follow'),
+        type: DataTypes.ENUM('comment', 'rating', 'interested', 'follow'),
         allowNull: false
     },
     entity_id: {
         type: DataTypes.INTEGER,
     },
     is_read: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: false
     },
     created_at: {
         type: DataTypes.DATE,

@@ -19,7 +19,7 @@ const Image = sequelize.define('Image', {
         type: DataTypes.ENUM('free','copyright'),
         allowNull: false,
     },
-    wathermark_text: {
+    watermark_text: {
         type: DataTypes.STRING(255)
     },
     order_index: {

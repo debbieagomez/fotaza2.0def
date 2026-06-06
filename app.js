@@ -10,7 +10,7 @@ const app = express();
 
 // MOTOR DE PLANTILLAS
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src','views'));
 
 
 // MILDAWARE
@@ -42,6 +42,9 @@ app.use((req, res, next) => {
 
 
 // RUTAS
+const authRoutes = require('./src/routes/auth');
+app.use('/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.render('index');
 });

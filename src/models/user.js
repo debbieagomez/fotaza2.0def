@@ -37,6 +37,14 @@ const User = sequelize.define('User', {
         allowNull: false,
         defaultValue: 0
     },
+    avatar_url: {
+  type: DataTypes.STRING(255)
+},
+is_active: {
+  type: DataTypes.BOOLEAN,
+  allowNull: false,
+  defaultValue: true
+},
     created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

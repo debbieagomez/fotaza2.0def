@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-5
+      .card.mt-5
+        .card-body
+          h3.card-title.text-center.mb-4 Iniciar sesión
+          form(action="/auth/login" method="POST")
+            .mb-3
+              label.form-label Email
+              input.form-control(type="email" name="email" required)
+            .mb-3
+              label.form-label Contraseña
+              input.form-control(type="password" name="password" required)
+            button.btn.btn-dark.w-100(type="submit") Iniciar sesión
+          p.text-center.mt-3
+            | ¿No tenés cuenta?
+            a(href="/auth/register")  Registrate
+

@@ -24,9 +24,9 @@ const Post = sequelize.define('Post', {
         defaultValue: 'active'
     },
     comments_open: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: 1
+        defaultValue: true
     }, 
     created_at: {
         type: DataTypes.DATE,

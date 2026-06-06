@@ -20,9 +20,9 @@ const Comment = sequelize.define('Comment', {
         allowNull: false
     },
     is_deleted: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: false
     },
     created_at: {
         type: DataTypes.DATE,
