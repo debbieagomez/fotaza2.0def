@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card.mt-4
+        .card-body
+          h3.card-title.mb-4 Nueva publicación
+          form(action="/posts/create" method="POST" enctype="multipart/form-data")
+            .mb-3
+              label.form-label Título *
+              input.form-control(type="text" name="title" required)
+            .mb-3
+              label.form-label Descripción (opcional)
+              textarea.form-control(name="description" rows="3")
+            .mb-3
+              label.form-label Imágenes *
+              input.form-control(type="file" name="images" multiple accept="image/*" required)
+              small.text-muted Podés subir hasta 10 imágenes. Formatos: JPG, PNG, WEBP
+            .mb-3
+              label.form-label Licencia *
+              select.form-select(name="license")
+                option(value="free") Sin copyright (libre)
+                option(value="copyright") Con copyright
+            .mb-3#watermark(style="display:none")
+              label.form-label Texto de marca de agua
+              input.form-control(type="text" name="watermark_text" placeholder="Ej: © Tu nombre")
+            .mb-3
+              label.form-label Etiquetas
+              input.form-control(type="text" name="tags" placeholder="Ej: paisaje, naturaleza, viaje")
+              small.text-muted Separalas con comas
+            button.btn.btn-dark.w-100(type="submit") Publicar
+
+block scripts
+  script.
+    const license = document.querySelector('select[name="license"]');
+    const watermark = document.getElementById('watermark');
+    license.addEventListener('change', () => {
+      watermark.style.display = license.value === 'copyright' ? 'block' : 'none';
+    });

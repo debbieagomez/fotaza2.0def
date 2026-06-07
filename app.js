@@ -45,6 +45,13 @@ app.use((req, res, next) => {
 const authRoutes = require('./src/routes/auth');
 app.use('/auth', authRoutes);
 
+const postRoutes = require('./src/routes/posts');
+app.use('/posts', postRoutes);
+
+app.get('/test', (req, res) => {
+  res.render('posts/create', { title: 'test' });
+});
+
 app.get('/', (req, res) => {
     res.render('index');
 });
@@ -56,8 +63,10 @@ app.use((req, res) => {
 });
 //500 - ERROR INTERNO DEL SERVIDOR
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).render('500', {title: 'error interno del servidor'});
+  console.error('=== ERROR 500 ===');
+  console.error(err.message);
+  console.error(err.stack);
+  res.status(500).render('500', {title: 'error interno del servidor'});
 });
 
 //SERVIDOR 
