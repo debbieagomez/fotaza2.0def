@@ -1,4 +1,4 @@
-const {Post, Image, Tag, PostTag, User } = require('../models/index');
+const {Post, Image, Tag, PostTag, User, Comment } = require('../models/index');
 
 const postController = {
 
@@ -72,7 +72,11 @@ const postController = {
                 include: [
                     {model: User, attributes: ['username', 'display_name']},
                     {model: Image },
-                    {model: Tag }
+                    {model: Tag },
+                    {
+                        model: Comment,
+                        include: [{ model: User, attributes:['username', 'display_name']}]
+                    }
                 ]
             });
             if(!post){

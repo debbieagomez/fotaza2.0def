@@ -3,6 +3,8 @@ extends ../layout
 block content
   .row.justify-content-center
     .col-md-8
+
+      //- PUBLICACIÓN
       .card.mt-4
         .card-body
           h3.card-title= post.title
@@ -11,7 +13,7 @@ block content
             strong= post.User.display_name || post.User.username
             |  · 
             = new Date(post.created_at).toLocaleDateString('es-AR')
-          
+
           if post.description
             p= post.description
 
@@ -30,7 +32,39 @@ block content
                 span.badge.bg-secondary.me-1 ##{tag.name}
 
           //- Botones
-          .mt-4
-            a.btn.btn-outline-dark(href="/") Volver al inicio
+          .mt-4.d-flex.gap-2
+            a.btn.btn-outline-dark(href="/") Volver
             if user && user.id === post.user_id
-              a.btn.btn-warning.ms-2(href=`/posts/${post.id}/edit`) Editar
+              form(action="/posts/" + post.id + "/close-comments" method="POST" style="display:inline")
+                button.btn.btn-outline-warning(type="submit")
+                  = post.comments_open ? 'Cerrar comentarios' : 'Abrir comentarios'
+
+      //- COMENTARIOS
+      .card.mt-4
+        .card-body
+          h5.card-title Comentarios
+
+          //- Formulario para comentar
+          if user
+            form(action="/comments/" + post.id method="POST").mb-4
+              .mb-3
+                textarea.form-control(name="body" rows="3" placeholder="Escribí tu comentario..." required)
+              button.btn.btn-dark(type="submit") Comentar
+
+          if !post.comments_open
+            .alert.alert-warning Los comentarios están cerrados.
+
+          //- Lista de comentarios
+          if post.Comments && post.Comments.length
+            each comment in post.Comments
+              if !comment.is_deleted
+                .border-bottom.py-3
+                  p.mb-1
+                    strong= comment.User.display_name || comment.User.username
+                    span.text-muted.ms-2.small= new Date(comment.created_at).toLocaleDateString('es-AR')
+                  p.mb-1= comment.body
+                  if user && user.id === post.user_id && comment.user_id !== post.user_id
+                    form(action=`/comments/${comment.id}/delete` method="POST")
+                      button.btn.btn-sm.btn-outline-danger(type="submit") Eliminar
+          else
+            p.text-muted Todavía no hay comentarios.
