@@ -51,6 +51,9 @@ app.use('/posts', postRoutes);
 const commentRoutes = require('./src/routes/comments');
 app.use('/comments', commentRoutes);
 
+const ratingRoutes = require('./src/routes/ratings');
+app.use('/ratings', ratingRoutes);
+
 app.get('/test', (req, res) => {
   res.render('posts/create', { title: 'test' });
 });

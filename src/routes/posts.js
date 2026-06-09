@@ -35,4 +35,5 @@ router.post('/create', isAuth, upload.array('images', 10), postController.postCr
 // GET /posts/:id — ver una publicación
 router.get('/:id', postController.getPost);
 
+
 module.exports = router;

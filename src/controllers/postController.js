@@ -1,4 +1,4 @@
-const {Post, Image, Tag, PostTag, User, Comment } = require('../models/index');
+const {Post, Image, Tag, PostTag, User, Comment, Rating } = require('../models/index');
 
 const postController = {
 
@@ -71,7 +71,9 @@ const postController = {
             const post = await Post.findByPk(req.params.id, {
                 include: [
                     {model: User, attributes: ['username', 'display_name']},
-                    {model: Image },
+                    {model: Image, 
+                        include: [{ model: Rating }]
+                    },
                     {model: Tag },
                     {
                         model: Comment,
@@ -84,6 +86,8 @@ const postController = {
                 return res.redirect('/');
             }
             res.render('posts/show', { title: post.title, post});
+
+            
 
         }catch(error){
             console.log(error);
