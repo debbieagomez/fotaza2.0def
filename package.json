@@ -17,6 +17,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "db:init": "node src/config/db-init.js",
+    "db:seed": "node src/config/seeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
