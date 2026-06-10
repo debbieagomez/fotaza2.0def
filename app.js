@@ -54,6 +54,12 @@ app.use('/comments', commentRoutes);
 const ratingRoutes = require('./src/routes/ratings');
 app.use('/ratings', ratingRoutes);
 
+const followerRoutes = require('./src/routes/followers');
+app.use('/followers', followerRoutes);
+
+const profileRoutes = require('./src/routes/profile');
+app.use('/profile', profileRoutes);
+
 app.get('/test', (req, res) => {
   res.render('posts/create', { title: 'test' });
 });

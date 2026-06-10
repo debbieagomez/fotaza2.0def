@@ -1,0 +1,53 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8
+      .card.mt-4
+        .card-body.text-center
+          if profileUser.avatar_url
+            img.rounded-circle.mb-3(src=profileUser.avatar_url width="100" height="100")
+          else
+            .bg-secondary.rounded-circle.d-inline-flex.align-items-center.justify-content-center.mb-3(style="width:100px;height:100px")
+              span.text-white.fs-3= (profileUser.display_name || profileUser.username).charAt(0).toUpperCase()
+          
+          h4= profileUser.display_name || profileUser.username
+          p.text-muted @#{profileUser.username}
+          
+          if profileUser.bio
+            p= profileUser.bio
+
+          //- Contadores
+          .d-flex.justify-content-center.gap-4.mt-3
+            div
+              strong= followersCount
+              p.text-muted.mb-0 Seguidores
+            div
+              strong= followingCount
+              p.text-muted.mb-0 Siguiendo
+
+          //- Botones follow/unfollow
+          if user && user.id !== profileUser.id
+            .mt-3
+              if isFollowing
+                form(action="/followers/" + profileUser.id + "/unfollow" method="POST").d-inline
+                  button.btn.btn-outline-dark(type="submit") Dejar de seguir
+              else
+                form(action="/followers/" + profileUser.id + "/follow" method="POST").d-inline
+                  button.btn.btn-dark(type="submit") Seguir
+
+      //- Publicaciones del usuario
+      .mt-4
+        h5 Publicaciones de #{profileUser.display_name || profileUser.username}
+        if posts && posts.length
+          .row
+            each post in posts
+              .col-md-4.mb-3
+                .card
+                  if post.Images && post.Images.length
+                    img.card-img-top(src=post.Images[0].file_path alt=post.title style="height:200px;object-fit:cover")
+                  .card-body
+                    h6.card-title= post.title
+                    a.btn.btn-sm.btn-outline-dark(href="/posts/" + post.id) Ver
+        else
+          p.text-muted Este usuario no tiene publicaciones todavía.
