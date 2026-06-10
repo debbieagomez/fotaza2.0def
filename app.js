@@ -60,6 +60,9 @@ app.use('/followers', followerRoutes);
 const profileRoutes = require('./src/routes/profile');
 app.use('/profile', profileRoutes);
 
+const searchRoutes = require('./src/routes/search');
+app.use('/search', searchRoutes);
+
 app.get('/test', (req, res) => {
   res.render('posts/create', { title: 'test' });
 });

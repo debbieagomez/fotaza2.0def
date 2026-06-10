@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-10
+      h3.mt-4 Buscar publicaciones
+
+      //- Formulario de búsqueda
+      form(action="/search" method="GET").card.p-3.mt-3
+        .row.g-3
+          .col-md-5
+            label.form-label Por título
+            input.form-control(type="text" name="q" value=q placeholder="Ej: atardecer...")
+          .col-md-5
+            label.form-label Por etiqueta
+            input.form-control(type="text" name="tag" value=tag placeholder="Ej: paisaje...")
+          .col-md-2.d-flex.align-items-end
+            button.btn.btn-dark.w-100(type="submit") Buscar
+
+      //- Resultados
+      .mt-4
+        if posts && posts.length
+          h5 #{posts.length} resultado(s) encontrado(s)
+          .row
+            each post in posts
+              .col-md-4.mb-3
+                .card.h-100
+                  if post.Images && post.Images.length
+                    img.card-img-top(src=post.Images[0].file_path alt=post.title style="height:200px;object-fit:cover")
+                  .card-body
+                    h6.card-title= post.title
+                    p.text-muted.small= post.User.display_name || post.User.username
+                    if post.Tags && post.Tags.length
+                      each tag in post.Tags
+                        span.badge.bg-secondary.me-1 ##{tag.name}
+                    a.btn.btn-sm.btn-outline-dark.mt-2(href="/posts/" + post.id) Ver
+        else
+          if q || tag
+            p.text-muted.mt-3 No se encontraron resultados.
+          else
+            p.text-muted.mt-3 Escribí algo para buscar.
