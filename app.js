@@ -63,9 +63,6 @@ app.use('/profile', profileRoutes);
 const searchRoutes = require('./src/routes/search');
 app.use('/search', searchRoutes);
 
-app.get('/test', (req, res) => {
-  res.render('posts/create', { title: 'test' });
-});
 
 app.get('/', (req, res) => {
     res.redirect('/search');
