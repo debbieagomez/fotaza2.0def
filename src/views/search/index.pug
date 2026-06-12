@@ -29,7 +29,7 @@ block content
                     img.card-img-top(src=post.Images[0].file_path alt=post.title style="height:200px;object-fit:cover")
                   .card-body
                     h6.card-title= post.title
-                    p.text-muted.small= post.User.display_name || post.User.username
+                    a(href="/profile/" + post.User.username).text-muted.small= post.User.display_name || post.User.username
                     if post.Tags && post.Tags.length
                       each tag in post.Tags
                         span.badge.bg-secondary.me-1 ##{tag.name}
