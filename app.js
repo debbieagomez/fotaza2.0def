@@ -68,7 +68,7 @@ app.get('/test', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('/search');
+    res.redirect('/search');
 });
 
 //manejo de errores
