@@ -14,6 +14,6 @@ router.get('/register', isGuest, authController.getRegister);
 //procesa el registro del usuario
 router.post('/register', isGuest, authController.postRegister);
 // Ruta para cerrar sesión
-router.get('/logout', authController.postLogout);
+router.post('/logout', authController.postLogout);
 
 module.exports = router;
